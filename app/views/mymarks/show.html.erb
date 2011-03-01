@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @mymark.user_id %>
+</p>
+
+<p>
+  <b>Mark:</b>
+  <%= @mymark.mark_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_mymark_path(@mymark) %> |
+<%= link_to 'Back', mymarks_path %>

@@ -1,0 +1,20 @@
+<h1>Listing mymarks</h1>
+
+<table>
+  <tr>
+    <th>Mark</th>
+    <th></th>
+    <th></th>
+  </tr>
+<tr>
+<% @mymarks.each do |mymark| %>
+    <td><a href="http://<%= mymark.mark.url %>"><%= mymark.mark.name %></a></td>
+    <td><%= link_to 'Show', mymark %></td>
+    <td><%= link_to 'Edit', edit_mymark_path(mymark) %></td>
+    <td><%= link_to 'Destroy', mymark, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+<%= link_to 'New Mymark', new_mymark_path %>

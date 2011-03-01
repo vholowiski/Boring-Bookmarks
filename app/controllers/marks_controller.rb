@@ -1,4 +1,7 @@
 class MarksController < ApplicationController
+
+before_filter :authenticate_user!
+
   # GET /marks
   # GET /marks.xml
   def index

@@ -10,11 +10,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110223044112) do
+ActiveRecord::Schema.define(:version => 20110301030348) do
 
   create_table "marks", :force => true do |t|
     t.string   "name"
     t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "mymarks", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "mark_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
