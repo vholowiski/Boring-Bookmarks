@@ -11,7 +11,7 @@
 
 <% @marks.each do |mark| %>
   <tr>
-    <td><a href="http://<%= mark.url %>"><%= mark.name %></a></td>
+    <td><a rel="nofollow" href="http://<%= mark.url %>"><%= mark.name %></a></td>
     <td><%= mark.url %></td>
     <td><%= link_to 'Show', mark %></td>
     <td><%= link_to 'Edit', edit_mark_path(mark) %></td>

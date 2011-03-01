@@ -8,7 +8,7 @@
   </tr>
 <tr>
 <% @mymarks.each do |mymark| %>
-    <td><a href="http://<% if mymark.mark_id != 0 %><%= mymark.mark.url %>"><%= mymark.mark.name %><% end %></a></td>
+    <td><a rel="nofollow" href="http://<% if mymark.mark_id != 0 %><%= mymark.mark.url %>"><%= mymark.mark.name %><% end %></a></td>
     <td><%= link_to 'Show', mymark %></td>
     <td><%= link_to 'Edit', edit_mymark_path(mymark) %></td>
     <td><%= link_to 'Destroy', mymark, :confirm => 'Are you sure?', :method => :delete %></td>
