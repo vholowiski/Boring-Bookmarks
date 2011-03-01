@@ -45,6 +45,22 @@ class MymarksController < ApplicationController
     @mymark = Mymark.new(params[:mymark])
     #force the user_id to the current user, so they can't do crazy stuff in the form.
     @mymark.user_id=current_user.id
+
+    #ok, this could get complicated. take params[:mymark.mark_id] (which is actually the url)
+    #see if it exists. If so, replace mark_id with the id, otherwise create it, then replace it.
+    @mark=Mark.find_by_url(params[:mymark][:mark_id])
+    
+    #if there is no @mark.id, then create a @mark
+    if @mark == nil
+	@mark=Mark.new
+        @mark.url = params[:mymark][:mark_id]
+	@mark.name = params[:mymark][:mark_id]
+	@mark.save
+    end
+    
+    #finally, set the mark.id
+    @mymark.mark_id=@mark.id
+
     respond_to do |format|
       if @mymark.save
         format.html { redirect_to(@mymark, :notice => 'Mymark was successfully created.') }
