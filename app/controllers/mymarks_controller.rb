@@ -4,12 +4,23 @@ before_filter :authenticate_user!
   # GET /mymarks.xml
   def index
     if params[:show_location]
-    @mymarks = Mymark.find_all_by_location_id(params[:show_location])
+    @mymarks = Mymark.find_all_by_user_id_and_location_id(current_user.id, params[:show_location])
     else
-    @mymarks = Mymark.all
+    @mymarks = Mymark.find_all_by_user_id(current_user.id)
     end
 
     @locations = Location.find_all_by_user_id(current_user.id)
+    if @locations.count == 0
+      @location = Location.new
+      @location.name = "Home"
+      @location.user_id = current_user.id
+      @location.save
+      @location = Location.new
+      @location.name = "Work"
+      @location.user_id = current_user.id
+      @location.save
+      @locations = Location.find_all_by_user_id(current_user.id)
+    end
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @mymarks }
