@@ -14,12 +14,15 @@
     <td><a rel="nofollow" href="http://<%= mark.url %>"><%= mark.name %></a></td>
     <td><%= mark.url %></td>
     <td><%= link_to 'Show', mark %></td>
+<% if admin_signed_in? %>
     <td><%= link_to 'Edit', edit_mark_path(mark) %></td>
     <td><%= link_to 'Destroy', mark, :confirm => 'Are you sure?', :method => :delete %></td>
+<% end %>
   </tr>
 <% end %>
 </table>
 
 <br />
-
+<% if admin_signed_in? %>
 <%= link_to 'New Mark', new_mark_path %>
+<% end %>

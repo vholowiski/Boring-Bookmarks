@@ -11,15 +11,21 @@
 
 <% @locations.each do |location| %>
   <tr>
+    <% if admin_signed_in? %>
     <td><%= location.user_id %></td>
+    <% end %>
     <td><%= location.name %></td>
+    <% if admin_signed_in? %>
     <td><%= link_to 'Show', location %></td>
     <td><%= link_to 'Edit', edit_location_path(location) %></td>
     <td><%= link_to 'Destroy', location, :confirm => 'Are you sure?', :method => :delete %></td>
+    <% end %>
   </tr>
 <% end %>
 </table>
 
 <br />
 
+<% if admin_signed_in? %>
 <%= link_to 'New Location', new_location_path %>
+<% end %>
