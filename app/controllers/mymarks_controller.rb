@@ -1,9 +1,15 @@
 class MymarksController < ApplicationController
+before_filter :authenticate_user!
   # GET /mymarks
   # GET /mymarks.xml
   def index
+    if params[:show_location]
+    @mymarks = Mymark.find_all_by_location_id(params[:show_location])
+    else
     @mymarks = Mymark.all
+    end
 
+    @locations = Location.find_all_by_user_id(current_user.id)
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @mymarks }
@@ -25,6 +31,7 @@ class MymarksController < ApplicationController
   # GET /mymarks/new.xml
   def new
     @marks=Mark.all
+    @locations = Location.find_all_by_user_id(current_user.id)
     @mymark = Mymark.new
     @mymark.user_id = current_user.id
     respond_to do |format|
@@ -36,12 +43,14 @@ class MymarksController < ApplicationController
   # GET /mymarks/1/edit
   def edit
     @mymark = Mymark.find(params[:id])
+    @locations = Location.find_all_by_user_id(current_user.id)
   end
 
   # POST /mymarks
   # POST /mymarks.xml
   def create
     @marks=Mark.all
+    @locations = Location.find_all_by_user_id(current_user.id)
     @mymark = Mymark.new(params[:mymark])
     #force the user_id to the current user, so they can't do crazy stuff in the form.
     @mymark.user_id=current_user.id
@@ -76,7 +85,7 @@ class MymarksController < ApplicationController
   # PUT /mymarks/1.xml
   def update
     @mymark = Mymark.find(params[:id])
-
+    @locations = Location.find_all_by_user_id(current_user.id)
     respond_to do |format|
       if @mymark.update_attributes(params[:mymark])
         format.html { redirect_to(@mymark, :notice => 'Mymark was successfully updated.') }

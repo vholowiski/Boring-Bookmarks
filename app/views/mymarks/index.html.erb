@@ -1,8 +1,17 @@
 <h1>Listing mymarks</h1>
 
+Locations: <%= link_to "Add a new Location", :controller => "locations", :action => "new" %>
+<ul>
+<li><%= link_to "All", :controller => "mymarks", :action => "index" %></li>
+<% @locations.each do |location| %>
+	<li><%= link_to location.name, :controller => "mymarks", :action => "index", :show_location => location.id %></li>
+<% end %>
+</ul>
+
+<P>
 <table>
   <tr>
-    <th>Mark</th>
+    <th>Bookmarks</th>
     <th></th>
     <th></th>
   </tr>
@@ -15,6 +24,6 @@
   </tr>
 <% end %>
 </table>
-
+</p>
 <br />
-<%= link_to 'New Mymark', new_mymark_path %>
+<%= link_to 'Add a New Bookmark', new_mymark_path %>

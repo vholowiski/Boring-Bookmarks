@@ -12,14 +12,18 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :user_id %><br />
-    <%= f.text_field :user_id %>
+    <%= f.hidden_field :user_id %>
   </div>
 
 <div class="field">
-<%= f.label :mark_id %>
+<%= f.label "Bookmark address (do not include http://): " %>
 <%= f.text_field :mark_id %>
 </div>  
+
+<div class="field">
+<%= f.label :location_id %>
+<%= f.select :location_id,  @locations.map {|location| [location.name, location.id]}%> - <%= link_to "Add a new Location", :controller => "locations", :action => "new" %>
+</div>
 
 <div class="actions">
     <%= f.submit %>

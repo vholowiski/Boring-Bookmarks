@@ -1,4 +1,6 @@
 Bookmark::Application.routes.draw do
+  resources :locations
+
   resources :mymarks
 
   devise_for :users
