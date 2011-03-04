@@ -3,11 +3,39 @@ before_filter :authenticate_user!
   # GET /mymarks
   # GET /mymarks.xml
   def index
+puts params[:show_location]
+if defined? params[:show_location]
     if params[:show_location]
-    @mymarks = Mymark.find_all_by_user_id_and_location_id(current_user.id, params[:show_location])
-    else
-    @mymarks = Mymark.find_all_by_user_id(current_user.id)
+	#set a cookie
+	if params[:show_location].to_s=="all"	
+		params[:show_location]=nil
+		cookies[:show_location]=nil
+	else
+		cookies[:show_location]=params[:show_location]
+	end
     end
+end
+
+if defined? params[:show_location]
+	#if no params, check if cookie exists
+	if cookies[:show_location]
+		params[:show_location]=cookies[:show_location]
+	end
+end
+
+if defined? params[:show_location]
+    if params[:show_location]
+	if params[:show_location].to_i == 0
+		@mymarks = Mymark.find_all_by_user_id(current_user.id)
+	else
+		@mymarks = Mymark.find_all_by_user_id_and_location_id(current_user.id, params[:show_location])
+	end
+    else
+	@mymarks = Mymark.find_all_by_user_id(current_user.id)
+    end    
+else
+    @mymarks = Mymark.find_all_by_user_id(current_user.id)
+end
 
     @locations = Location.find_all_by_user_id(current_user.id)
     if @locations.count == 0
@@ -21,6 +49,7 @@ before_filter :authenticate_user!
       @location.save
       @locations = Location.find_all_by_user_id(current_user.id)
     end
+@current_location = Location.find_by_id(params[:show_location])
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @mymarks }

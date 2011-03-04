@@ -1,8 +1,8 @@
 <h1>Listing mymarks</h1>
-
 Locations: <%= link_to "Add a new Location", :controller => "locations", :action => "new" %>
+Currently Showing: <% if @current_location %> <%= @current_location.name %> <% else %> All <% end %>
 <ul>
-<li><%= link_to "All", :controller => "mymarks", :action => "index" %></li>
+<li><%= link_to "All", :controller => "mymarks", :action => "index", :show_location => "all"%></li>
 <% @locations.each do |location| %>
 	<li><%= link_to location.name, :controller => "mymarks", :action => "index", :show_location => location.id %></li>
 <% end %>
