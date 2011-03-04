@@ -95,6 +95,9 @@ end
     #force the user_id to the current user, so they can't do crazy stuff in the form.
     @mymark.user_id=current_user.id
 
+    #before we do anything with the mark, clean it up
+    params[:mymark][:mark_id]= params[:mymark][:mark_id].strip
+    params[:mymark][:mark_id]=params[:mymark][:mark_id].gsub("http://", "")
     #ok, this could get complicated. take params[:mymark.mark_id] (which is actually the url)
     #see if it exists. If so, replace mark_id with the id, otherwise create it, then replace it.
     @mark=Mark.find_by_url(params[:mymark][:mark_id])
